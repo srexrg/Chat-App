@@ -1,5 +1,7 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import generateTokenAndSetCookie from "../utils/generatetoken.js";
+
 export const signup = async (req, res) => {
   try {
     const { fullname, username, password, confirmPassword, gender } = req.body;
@@ -30,11 +32,13 @@ export const signup = async (req, res) => {
     });
 
     if (newUser) {
+      generateTokenAndSetCookie(newUser._id, res);
       await newUser.save();
 
       res.status(201).json({
         _id: newUser._id,
         fullname: newUser.fullname,
+        username: newUser.username,
         profilePic: newUser.profilePic,
       });
     } else {
@@ -46,6 +50,46 @@ export const signup = async (req, res) => {
   }
 };
 
-export const login = async (req, res) => {};
+export const login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-export const logout = async (req, res) => {};
+    const user = await User.findOne({ username });
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      user?.password || ""
+    );
+
+    if (!user || !isPasswordCorrect) {
+      return res.status(400).json({ error: "Invalid credentials" });
+    }
+
+    generateTokenAndSetCookie(user._id, res);
+
+    res.status(201).json({
+      _id: user._id,
+      fullname: user.fullname,
+      username: user.username,
+      profilePic: user.profilePic,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Login  error" });
+
+  }
+};
+
+export const logout = (req, res) => {
+
+  try {
+
+    res.cookie("jwt","",{maxAge:0})
+    res.status(200).json({message:"Logged out "})
+    
+  } catch (error) {
+
+    console.log(error)
+    res.status(500).json({ error: "Logout handler error" });
+
+  }
+};
