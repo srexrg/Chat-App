@@ -1,12 +1,16 @@
-import './App.css'
+// import SignUp from "./pages/signup/SignUp";
+
+import "./App.css";
+import Home from "./pages/home/Home";
 
 function App() {
+  return(
 
-  return (
-    <>
-    <h1>Chat App</h1>
-    </>
+  <div className='p-4 h-screen flex items-center justify-center'>
+  {/* <SignUp/> */}
+  <Home/>
+  </div>
   )
 }
 
-export default App
+export default App;
