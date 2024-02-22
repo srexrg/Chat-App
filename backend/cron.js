@@ -1,5 +1,5 @@
-import cron from cron;
-import https from https;
+import cron from 'cron';
+import https from 'https';
 
 const backendUrl= "https://chat-app-s53k.onrender.com"
 
