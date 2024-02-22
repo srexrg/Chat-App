@@ -4,12 +4,11 @@
 
 
 body {
-	background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+	background: linear-gradient(rgba(13, 11, 11, 0.2), rgba(6, 6, 6, 0.2));
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
 }
-
 
 /* dark mode looking scrollbar */
 ::-webkit-scrollbar {
@@ -58,4 +57,5 @@ body {
 	60% {
 		transform: translate3d(4px, 0, 0);
 	}
+
 }
