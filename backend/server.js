@@ -1,5 +1,6 @@
 import path from "path";
 import express from "express";
+import cors from "cors"
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
@@ -13,6 +14,7 @@ import job from "./cron.js";
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors())
 const port = process.env.PORT || 3000;
 
 // job.start();
