@@ -8,7 +8,6 @@ import userRoutes from "./routes/user.routes.js";
 import connectDB from "./db/db.js";
 import cookieParser from "cookie-parser";
 import { app, server } from "./socket/socket.js";
-import job from "./cron.js";
 
 
 dotenv.config();
@@ -17,7 +16,6 @@ app.use(cookieParser());
 app.use(cors())
 const port = process.env.PORT || 3000;
 
-// job.start();
 
 const __dirname = path.resolve();
 

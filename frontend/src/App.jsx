@@ -10,8 +10,6 @@ import Landing from "./pages/landing/Landing";
 function App() {
   const { authUser } = useAuthContext();
   const location = useLocation();
-
-  // Determine if the current path is the root path
   const isRootPath = location.pathname === "/";
 
   return (
