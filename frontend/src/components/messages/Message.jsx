@@ -23,11 +23,12 @@ const Message = ({ message }) => {
           <img alt="Tailwind CSS chat bubble component" src={profilePic} />
         </div>
       </div>
-      <div className={`chat-bubble text-white ${bubbleBgColor} ${shakeClass}pb-2`}>
+      <div className={`chat-bubble text-white ${bubbleBgColor} ${shakeClass} pb-2`}>
         {message.message}
       </div>
       <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">
         {formattedTime}
+        {/* Conditional rendering of BsCheck2All icon based on message seen */}
       </div>
     </div>
   );

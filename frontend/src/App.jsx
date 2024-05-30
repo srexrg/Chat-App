@@ -1,27 +1,37 @@
 import SignUp from "./pages/signup/SignUp";
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import "./App.css";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
+import Landing from "./pages/landing/Landing";
 
 function App() {
   const { authUser } = useAuthContext();
+  const location = useLocation();
+
+  // Determine if the current path is the root path
+  const isRootPath = location.pathname === "/";
+
   return (
-    <div className="p-4 h-screen flex items-center justify-center">
+    <div className={`min-h-screen ${isRootPath ? "flex flex-col" : "p-4 h-screen flex items-center justify-center"}`}>
       <Routes>
         <Route
           path="/"
-          element={authUser ? <Home /> : <Navigate to={"/login"} />}
+          element={authUser ? <Navigate to="/home" /> : <Landing />}
+        />
+        <Route
+          path="/home"
+          element={authUser ? <Home /> : <Navigate to="/" />}
         />
         <Route
           path="/signup"
-          element={authUser ? <Navigate to={"/"} /> : <SignUp />}
+          element={authUser ? <Navigate to="/home" /> : <SignUp />}
         />
         <Route
           path="/login"
-          element={authUser ? <Navigate to={"/"} /> : <Login/>}
+          element={authUser ? <Navigate to="/home" /> : <Login />}
         />
       </Routes>
       <Toaster />
